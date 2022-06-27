@@ -3,7 +3,7 @@ import {AuthGuardInterface} from './auth.guard.middleware';
 import {HttpError} from './error.filter.interface';
 
 export class AuthGuard implements AuthGuardInterface {
-  check(req: Request, res: Response, next: NextFunction): void {
+  async check(req: Request, res: Response, next: NextFunction): Promise<void> {
     if (req.user) {
       return next();
     }

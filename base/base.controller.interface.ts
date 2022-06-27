@@ -1,4 +1,4 @@
-import { NextFunction, Router, Request, Response } from "express";
+import { NextFunction, Router, Request, Response } from 'express';
 
 export interface BaseControllerInterface {
 	router: Router;
@@ -6,14 +6,10 @@ export interface BaseControllerInterface {
 }
 
 export interface RouteInfo {
-	method: "get" | "post" | "delete" | "put" | "patch";
+	method: 'get' | 'post' | 'delete' | 'put' | 'patch';
 	func: routeHandler;
 	middlewares?: routeHandler[];
 	path: string;
 }
 
-export type routeHandler = (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => Promise<void>;
+export type routeHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
