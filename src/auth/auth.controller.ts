@@ -11,35 +11,37 @@ import { AuthLoginDto } from './dto/auth.login.dto';
 
 @injectable()
 export class AuthController extends BaseController implements AuthControllerInterface {
-	constructor(
-		@inject(Types.LoggerService) readonly loggerService: LoggerServiceInterface,
-		@inject(Types.AuthService) private readonly authService: AuthServiceInterface,
-	) {
-		super(loggerService);
+  constructor(
+    @inject(Types.LoggerService) readonly loggerService: LoggerServiceInterface,
+    @inject(Types.AuthService) private readonly authService: AuthServiceInterface,
+  ) {
+    super(loggerService);
 
-		const loginValidate = new ValidateMiddleware(AuthLoginDto);
+    const loginValidate = new ValidateMiddleware(AuthLoginDto);
 
-		this.bindRoutes([
-			{
-				path: '/login',
-				method: 'post',
-				func: this.login,
-				middlewares: [loginValidate.use.bind(loginValidate)],
-			},
-		]);
-	}
+    this.bindRoutes([
+      {
+        path: '/login',
+        method: 'post',
+        func: this.login,
+        middlewares: [loginValidate.use.bind(loginValidate)],
+      },
+    ]);
+  }
 
-	async login(
-		{ body: { email, password } }: Request<{}, {}, AuthLoginDto>,
-		res: Response,
-		next: NextFunction,
-	): Promise<void> {
-		const token = await this.authService.login(email, password);
+  async login(
+    { body: { email, password } }: Request<{}, {}, AuthLoginDto>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
-		if (!token) {
-			return next(new HttpError(401, 'login or password wrong'));
-		}
+    const token = await this.authService.login(email, password);
 
-		res.json(token);
-	}
+    if (!token) {
+      return next(new HttpError(401, 'login or password wrong'));
+    }
+
+    res.setHeader('Access-Control-Allow-Origin', '*').json(token);
+  }
 }

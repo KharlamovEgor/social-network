@@ -1,4 +1,4 @@
-import express, { Express, json, raw, static as st } from 'express';
+import express, { Express, json, raw, Request, Response, static as st } from 'express';
 import { inject, injectable } from 'inversify';
 import { UsersControllerInterface } from './users/users.controller.interface';
 import { Types } from './Types';

@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
-import { Logger } from "tslog";
-import { LoggerServiceInterface } from "./logger.service.interface";
+import { injectable } from 'inversify';
+import { Logger } from 'tslog';
+import { LoggerServiceInterface } from './logger.service.interface';
 
 @injectable()
 export class LoggerService implements LoggerServiceInterface {
@@ -8,7 +8,7 @@ export class LoggerService implements LoggerServiceInterface {
 
 	constructor() {
 		this.logger = new Logger({
-			displayFilePath: "hidden",
+			displayFilePath: 'hidden',
 			displayFunctionName: false,
 			displayInstanceName: false,
 		});

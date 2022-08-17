@@ -1,9 +1,9 @@
-import { DotenvConfigOutput, config } from "dotenv";
-import { injectable } from "inversify";
-import { inject } from "inversify";
-import { Types } from "../src/Types";
-import { EnvServiceInterface } from "./env.service.interface";
-import { LoggerServiceInterface } from "./logger.service.interface";
+import { DotenvConfigOutput, config } from 'dotenv';
+import { injectable } from 'inversify';
+import { inject } from 'inversify';
+import { Types } from '../src/Types';
+import { EnvServiceInterface } from './env.service.interface';
+import { LoggerServiceInterface } from './logger.service.interface';
 
 @injectable()
 export class EnvService implements EnvServiceInterface {
@@ -11,12 +11,12 @@ export class EnvService implements EnvServiceInterface {
 
 	constructor(
 		@inject(Types.LoggerService)
-		private readonly loggerService: LoggerServiceInterface
+		private readonly loggerService: LoggerServiceInterface,
 	) {
 		this.data = config();
 
 		if (!this.data.error) {
-			this.loggerService.info("env loaded");
+			this.loggerService.info('env loaded');
 		} else {
 			this.loggerService.error(this.data.error.message);
 		}
